@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4C8AB3">
+    <meta name="description" content="Konsulind - Platform Konsultasi Bisnis Terpercaya">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIktvbnN1bGluZCIsCiAgInNob3J0X25hbWUiOiAiS29uc3VsaW5kIiwKICAic3RhcnRfdXJsIjogIi8iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNGRkZGRkYiLAogICJ0aGVtZV9jb2xvciI6ICIjNEM4QUIzIiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiaHR0cHM6Ly91aS1hdmF0YXJzLmNvbS9hcGkvP25hbWU9SyZzaXplPTE5MiZiYWNrZ3JvdW5kPTRDOEFCMyZjb2xvcj1mZmYiLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiaHR0cHM6Ly91aS1hdmF0YXJzLmNvbS9hcGkvP25hbWU9SyZzaXplPTUxMiZiYWNrZ3JvdW5kPTRDOEFCMyZjb2xvcj1mZmYiLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIKICAgIH0KICBdCn0=">
+    <title>Konsulind - Konsultasi Bisnis</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #4C8AB3;
+            --secondary-color: #FFFFFF;
+            --dark-bg: #1a1a1a;
+            --dark-card: #2d2d2d;
+            --text-dark: #e0e0e0;
+        }
+        
+        * {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        body {
+            background: #f8f9fa;
+            padding-bottom: 70px;
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        body.dark-mode {
+            background: var(--dark-bg);
+            color: var(--text-dark);
+        }
+        
+        body.dark-mode .card {
+            background: var(--dark-card);
+            color: var(--text-dark);
+            border-color: #444;
+        }
+        
+        body.dark-mode .navbar {
+            background: var(--dark-card) !important;
+        }
+        
+        body.dark-mode .bottom-nav {
+            background: var(--dark-card);
+            border-top-color: #444;
+        }
+        
+        body.dark-mode .modal-content {
+            background: var(--dark-card);
+            color: var(--text-dark);
+        }
+        
+        body.dark-mode .form-control,
+        body.dark-mode .form-select {
+            background: #1a1a1a;
+            color: var(--text-dark);
+            border-color: #444;
+        }
+        
+        body.dark-mode .list-group-item {
+            background: var(--dark-card);
+            color: var(--text-dark);
+            border-color: #444;
+        }
+        
+        .navbar {
+            background: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .nav-item-bottom {
+            text-align: center;
+            flex: 1;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 5px;
+            color: #666;
+        }
+        
+        .nav-item-bottom:hover {
+            transform: translateY(-3px);
+        }
+        
+        .nav-item-bottom.active {
+            color: var(--primary-color);
+        }
+        
+        .nav-item-bottom i {
+            font-size: 24px;
+            display: block;
+        }
+        
+        .nav-item-bottom span {
+            font-size: 12px;
+            display: block;
+            margin-top: 3px;
+        }
+        
+        .page {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 25px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: #3a6d8f;
+            transform: scale(1.05);
+        }
+        
+        .mentor-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .article-img, .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .loading-spinner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            background: rgba(255,255,255,0.9);
+            padding: 30px;
+            border-radius: 15px;
+        }
+        
+        .search-box {
+            border-radius: 25px;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .badge-custom {
+            background: var(--primary-color);
+            color: white;
+            border-radius: 15px;
+            padding: 5px 15px;
+        }
+        
+        .chat-bubble {
+            max-width: 70%;
+            padding: 12px 18px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .chat-bubble.user {
+            background: var(--primary-color);
+            color: white;
+            margin-left: auto;
+        }
+        
+        .chat-bubble.bot {
+            background: #e9ecef;
+            color: #333;
+        }
+        
+        .chatbot-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+        }
+        
+        .floating-chat-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 999;
+            transition: transform 0.3s;
+        }
+        
+        .floating-chat-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), #3a6d8f);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 10px;
+        }
+        
+        .rating {
+            color: #ffc107;
+        }
+        
+        .modal-content {
+            border-radius: 20px;
+        }
+        
+        .forum-post {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        body.dark-mode .forum-post {
+            background: var(--dark-card);
+        }
+        
+        .comment-section {
+            margin-left: 20px;
+            padding-left: 15px;
+            border-left: 3px solid var(--primary-color);
+            margin-top: 10px;
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .consultation-session {
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .message-input {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+
+        body.dark-mode .message-input {
+            background: var(--dark-card);
+            border-top-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">
+                <i class="bi bi-briefcase-fill"></i> Konsulind
+            </span>
+            <div>
+                <i class="bi bi-bell text-white fs-4 me-3" style="cursor: pointer;" onclick="showNotifications()"></i>
+                <i class="bi bi-moon-fill text-white fs-4" id="darkModeToggle" style="cursor: pointer;" onclick="toggleDarkMode()"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-3">
+        <!-- HOME PAGE -->
+        <div id="homePage" class="page active">
+            <div class="hero-section">
+                <h4>Selamat Datang di Konsulind!</h4>
+                <p class="mb-0">Platform konsultasi bisnis terpercaya untuk mengembangkan usaha Anda</p>
+            </div>
+            
+            <div class="input-group mb-3">
+                <input type="text" class="form-control search-box" placeholder="Cari mentor, artikel, atau produk..." id="globalSearch">
+                <button class="btn btn-primary" onclick="performSearch()"><i class="bi bi-search"></i></button>
+            </div>
+
+            <h5 class="mb-3">Fitur Unggulan</h5>
+            <div class="row">
+                <div class="col-4 mb-3">
+                    <div class="card text-center" style="cursor: pointer;" onclick="navigateTo('consultationPage')">
+                        <div class="card-body p-2">
+                            <div class="feature-icon"><i class="bi bi-chat-dots"></i></div>
+                            <small>Konsultasi</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 mb-3">
+                    <div class="card text-center" style="cursor: pointer;" onclick="navigateTo('communityPage')">
+                        <div class="card-body p-2">
+                            <div class="feature-icon"><i class="bi bi-people"></i></div>
+                            <small>Komunitas</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 mb-3">
+                    <div class="card text-center" style="cursor: pointer;" onclick="navigateTo('shopPage')">
+                        <div class="card-body p-2">
+                            <div class="feature-icon"><i class="bi bi-shop"></i></div>
+                            <small>Toko</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h5 class="mb-3 mt-4">Mentor Terpopuler</h5>
+            <div id="popularMentors"></div>
+
+            <h5 class="mb-3 mt-4">Artikel Terbaru</h5>
+            <div id="latestArticles"></div>
+        </div>
+
+        <!-- COMMUNITY PAGE -->
+        <div id="communityPage" class="page">
+            <h4 class="mb-3">Forum Komunitas</h4>
+            <button class="btn btn-primary mb-3" onclick="showNewPostModal()">
+                <i class="bi bi-plus-circle"></i> Buat Postingan
+            </button>
+            <div id="forumPosts"></div>
+        </div>
+
+        <!-- CONSULTATION PAGE -->
+        <div id="consultationPage" class="page">
+            <h4 class="mb-3">Pilih Mentor</h4>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control search-box" placeholder="Cari mentor..." id="mentorSearch" onkeyup="filterMentors()">
+                <button class="btn btn-primary" onclick="filterMentors()"><i class="bi bi-search"></i></button>
+            </div>
+            <div id="mentorList"></div>
+        </div>
+
+        <!-- SHOP PAGE -->
+        <div id="shopPage" class="page">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="mb-0">Toko Bisnis</h4>
+                <div style="position: relative; cursor: pointer;" onclick="showCart()">
+                    <i class="bi bi-cart3 fs-3"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </div>
+            </div>
+            <div class="btn-group mb-3 w-100" role="group">
+                <button class="btn btn-outline-primary" onclick="filterProducts('all')">Semua</button>
+                <button class="btn btn-outline-primary" onclick="filterProducts('template')">Template</button>
+                <button class="btn btn-outline-primary" onclick="filterProducts('ebook')">E-Book</button>
+                <button class="btn btn-outline-primary" onclick="filterProducts('tools')">Tools</button>
+            </div>
+            <div id="productList"></div>
+        </div>
+
+        <!-- PROFILE PAGE -->
+        <div id="profilePage" class="page">
+            <div class="card">
+                <div class="card-body text-center">
+                    <img src="https://ui-avatars.com/api/?name=User+Konsulind&size=120&background=4C8AB3&color=fff" alt="Profile" class="rounded-circle mb-3">
+                    <h5 id="userName">Pengguna Konsulind</h5>
+                    <p class="text-muted mb-0">user@konsulind.com</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="mb-3"><i class="bi bi-gear"></i> Pengaturan</h6>
+                    <div class="list-group">
+                        <a href="javascript:void(0)" class="list-group-item list-group-item-action" onclick="showHistory()">
+                            <i class="bi bi-clock-history"></i> Riwayat Konsultasi
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item list-group-item-action" onclick="showTransactions()">
+                            <i class="bi bi-receipt"></i> Riwayat Transaksi
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item list-group-item-action" onclick="showFavorites()">
+                            <i class="bi bi-heart"></i> Artikel Favorit
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item list-group-item-action" onclick="editProfile()">
+                            <i class="bi bi-pencil"></i> Edit Profil
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item-bottom active" data-page="homePage" onclick="navigateTo('homePage')">
+            <i class="bi bi-house-fill"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item-bottom" data-page="communityPage" onclick="navigateTo('communityPage')">
+            <i class="bi bi-people-fill"></i>
+            <span>Komunitas</span>
+        </div>
+        <div class="nav-item-bottom" data-page="consultationPage" onclick="navigateTo('consultationPage')">
+            <i class="bi bi-chat-dots-fill"></i>
+            <span>Konsultasi</span>
+        </div>
+        <div class="nav-item-bottom" data-page="shopPage" onclick="navigateTo('shopPage')">
+            <i class="bi bi-shop"></i>
+            <span>Toko</span>
+        </div>
+        <div class="nav-item-bottom" data-page="profilePage" onclick="navigateTo('profilePage')">
+            <i class="bi bi-person-fill"></i>
+            <span>Profil</span>
+        </div>
+    </div>
+
+    <div class="floating-chat-btn" onclick="openChatbot()">
+        <i class="bi bi-robot"></i>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <script>
+        const database = {
+            mentors: [
+                { id: 1, name: "Dr. Ahmad Santoso", expertise: "Strategi Bisnis", rating: 4.9, sessions: 150, price: 250000, image: "https://ui-avatars.com/api/?name=Ahmad+Santoso&size=200&background=4C8AB3&color=fff", description: "Expert dalam strategi bisnis dengan 15 tahun pengalaman" },
+                { id: 2, name: "Sarah Wijaya, MBA", expertise: "Marketing Digital", rating: 4.8, sessions: 120, price: 200000, image: "https://ui-avatars.com/api/?name=Sarah+Wijaya&size=200&background=4C8AB3&color=fff", description: "Spesialis marketing digital dan social media" },
+                { id: 3, name: "Budi Hartono", expertise: "Keuangan", rating: 4.7, sessions: 100, price: 220000, image: "https://ui-avatars.com/api/?name=Budi+Hartono&size=200&background=4C8AB3&color=fff", description: "Konsultan keuangan berpengalaman untuk UMKM" },
+                { id: 4, name: "Diana Putri", expertise: "Manajemen SDM", rating: 4.9, sessions: 90, price: 180000, image: "https://ui-avatars.com/api/?name=Diana+Putri&size=200&background=4C8AB3&color=fff", description: "Expert dalam pengembangan tim dan manajemen SDM" }
+            ],
+            articles: [
+                { id: 1, title: "7 Strategi Marketing untuk UMKM", author: "Tim Konsulind", date: "2025-11-10", category: "Marketing", image: "https://via.placeholder.com/400x250/4C8AB3/ffffff?text=Marketing+UMKM", content: "Pelajari strategi marketing efektif yang terbukti meningkatkan penjualan UMKM hingga 300%. Dari social media marketing hingga email campaign.", views: 1200, likes: 85 },
+                { id: 2, title: "Cara Mengelola Keuangan Bisnis", author: "Financial Team", date: "2025-11-12", category: "Keuangan", image: "https://via.placeholder.com/400x250/4C8AB3/ffffff?text=Keuangan+Bisnis", content: "Panduan lengkap mengelola keuangan bisnis dari pencatatan hingga analisis cash flow untuk pertumbuhan berkelanjutan.", views: 980, likes: 72 },
+                { id: 3, title: "Tips Membangun Brand yang Kuat", author: "Branding Specialist", date: "2025-11-14", category: "Branding", image: "https://via.placeholder.com/400x250/4C8AB3/ffffff?text=Brand+Building", content: "Membangun brand yang kuat dimulai dari identitas yang jelas, konsisten dalam komunikasi, dan memberikan value proposition unik.", views: 1500, likes: 120 },
+                { id: 4, title: "Panduan Memulai Bisnis Online", author: "E-commerce Team", date: "2025-11-15", category: "E-commerce", image: "https://via.placeholder.com/400x250/4C8AB3/ffffff?text=Bisnis+Online", content: "Langkah-langkah praktis memulai bisnis online dari riset produk, memilih platform, hingga strategi pemasaran digital.", views: 2100, likes: 156 }
+            ],
+            products: [
+                { id: 1, name: "Template Business Plan", type: "template", price: 150000, rating: 4.8, image: "https://via.placeholder.com/300x200/4C8AB3/ffffff?text=Business+Plan", description: "Template lengkap untuk membuat business plan profesional" },
+                { id: 2, name: "E-Book Marketing Digital", type: "ebook", price: 100000, rating: 4.7, image: "https://via.placeholder.com/300x200/4C8AB3/ffffff?text=Marketing+Ebook", description: "Panduan lengkap marketing digital dari A-Z" },
+                { id: 3, name: "Financial Calculator Tool", type: "tools", price: 200000, rating: 4.9, image: "https://via.placeholder.com/300x200/4C8AB3/ffffff?text=Financial+Tool", description: "Tools untuk menghitung proyeksi keuangan bisnis" },
+                { id: 4, name: "Template Proposal Bisnis", type: "template", price: 120000, rating: 4.6, image: "https://via.placeholder.com/300x200/4C8AB3/ffffff?text=Proposal+Template", description: "Template proposal bisnis yang menarik investor" },
+                { id: 5, name: "E-Book Strategi Bisnis", type: "ebook", price: 95000, rating: 4.8, image: "https://via.placeholder.com/300x200/4C8AB3/ffffff?text=Strategy+Ebook", description: "Strategi bisnis yang terbukti efektif" },
+                { id: 6, name: "Social Media Planner", type: "tools", price: 175000, rating: 4.7, image: "https://via.placeholder.com/300x200/4C8AB3/ffffff?text=Social+Planner", description: "Tool untuk merencanakan konten social media" }
+            ],
+            forumPosts: []
+        };
+
+        let appData = {
+            favorites: JSON.parse(localStorage.getItem('favorites') || '[]'),
+            cart: JSON.parse(localStorage.getItem('cart') || '[]'),
+            consultationHistory: JSON.parse(localStorage.getItem('consultationHistory') || '[]'),
+            transactions: JSON.parse(localStorage.getItem('transactions') || '[]'),
+            darkMode: localStorage.getItem('darkMode') === 'true',
+            forumPosts: JSON.parse(localStorage.getItem('forumPosts') || '[]')
+        };
+
+        if (appData.forumPosts.length === 0) {
+            appData.forumPosts = [
+                { id: 1, author: "John Doe", content: "Bagaimana cara meningkatkan penjualan online?", likes: 15, comments: [
+                    { author: "Jane Smith", content: "Coba fokus pada SEO dan konten marketing" },
+                    { author: "Bob Wilson", content: "Social media ads juga efektif!" }
+                ], timestamp: new Date(Date.now() - 2*60*60*1000).toISOString() },
+                { id: 2, author: "Alice Brown", content: "Tips memilih platform e-commerce yang tepat?", likes: 12, comments: [
+                    { author: "Charlie Davis", content: "Tergantung jenis produk dan target market Anda" }
+                ], timestamp: new Date(Date.now() - 5*60*60*1000).toISOString() }
+            ];
+            localStorage.setItem('forumPosts', JSON.stringify(appData.forumPosts));
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showLoading();
+            setTimeout(() => {
+                initializeApp();
+                hideLoading();
+                animateEntrance();
+            }, 1000);
+            
+            if (appData.darkMode) {
+                document.body.classList.add('dark-mode');
+                document.getElementById('darkModeToggle').classList.replace('bi-moon-fill', 'bi-sun-fill');
+            }
+            
+            registerServiceWorker();
+            requestNotificationPermission();
+        });
+
+        function initializeApp() {
+            renderPopularMentors();
+            renderLatestArticles();
+            renderMentors();
+            renderProducts();
+            renderForumPosts();
+            updateCartBadge();
+        }
+
+        function showLoading() {
+            document.getElementById('loadingSpinner').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingSpinner').style.display = 'none';
+        }
+
+        function animateEntrance() {
+            anime({
+                targets: '.card',
+                translateY: [50, 0],
+                opacity: [0, 1],
+                delay: anime.stagger(100),
+                easing: 'easeOutQuad',
+                duration: 600
+            });
+        }
+
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            
+            document.querySelectorAll('.nav-item-bottom').forEach(item => item.classList.remove('active'));
+            const navItem = document.querySelector(`[data-page="${pageId}"]`);
+            if (navItem) navItem.classList.add('active');
+            
+            animateEntrance();
+        }
+
+        function renderPopularMentors() {
+            const container = document.getElementById('popularMentors');
+            const topMentors = database.mentors.slice(0, 3);
+            
+            container.innerHTML = topMentors.map(mentor => `
+                <div class="card mentor-card mb-3" style="cursor: pointer;" onclick="showMentorDetail(${mentor.id})">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <img src="${mentor.image}" alt="${mentor.name}">
+                            <div class="ms-3 flex-grow-1">
+                                <h6 class="mb-1">${mentor.name}</h6>
+                                <small class="text-muted">${mentor.expertise}</small>
+                                <div class="rating mt-1">
+                                    <i class="bi bi-star-fill"></i> ${mentor.rating} (${mentor.sessions} sesi)
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <strong class="text-primary">Rp ${mentor.price.toLocaleString('id-ID')}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderLatestArticles() {
+            const container = document.getElementById('latestArticles');
+            const latest = database.articles.slice(0, 3);
+            
+            container.innerHTML = latest.map(article => `
+                <div class="card mb-3" style="cursor: pointer;" onclick="showArticleDetail(${article.id})">
+                    <img src="${article.image}" class="article-img" alt="${article.title}">
+                    <div class="card-body">
+                        <span class="badge badge-custom">${article.category}</span>
+                        <h6 class="mt-2">${article.title}</h6>
+                        <small class="text-muted">
+                            <i class="bi bi-person"></i> ${article.author} | 
+                            <i class="bi bi-eye"></i> ${article.views} views
+                        </small>
+                        <div class="mt-2">
+                            <button class="btn btn-sm btn-outline-primary" onclick="event.stopPropagation(); toggleFavorite(${article.id})">
+                                <i class="bi bi-heart${appData.favorites.includes(article.id) ? '-fill text-danger' : ''}"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary ms-2" onclick="event.stopPropagation(); shareArticle(${article.id})">
+                                <i class="bi bi-share"></i> Bagikan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderMentors() {
+            const container = document.getElementById('mentorList');
+            container.innerHTML = database.mentors.map(mentor => `
+                <div class="card mentor-card mb-3" style="cursor: pointer;" onclick="showMentorDetail(${mentor.id})">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <img src="${mentor.image}" alt="${mentor.name}">
+                            <div class="ms-3 flex-grow-1">
+                                <h6 class="mb-1">${mentor.name}</h6>
+                                <small class="text-muted">${mentor.expertise}</small>
+                                <div class="rating mt-1">
+                                    <i class="bi bi-star-fill"></i> ${mentor.rating} (${mentor.sessions} sesi)
+                                </div>
+                                <p class="mb-0 mt-2"><small>${mentor.description}</small></p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100 mt-3" onclick="event.stopPropagation(); startConsultation(${mentor.id})">
+                            Mulai Konsultasi - Rp ${mentor.price.toLocaleString('id-ID')}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderProducts(filter = 'all') {
+            const container = document.getElementById('productList');
+            const filtered = filter === 'all' ? database.products : database.products.filter(p => p.type === filter);
+            
+            container.innerHTML = '<div class="row">' + filtered.map(product => `
+                <div class="col-md-6 mb-3">
+                    <div class="card" style="cursor: pointer;" onclick="showProductDetail(${product.id})">
+                        <img src="${product.image}" class="product-img" alt="${product.name}">
+                        <div class="card-body">
+                            <h6>${product.name}</h6>
+                            <div class="rating mb-2">
+                                <i class="bi bi-star-fill"></i> ${product.rating}
+                            </div>
+                            <p><small>${product.description}</small></p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <strong class="text-primary">Rp ${product.price.toLocaleString('id-ID')}</strong>
+                                <button class="btn btn-sm btn-primary" onclick="event.stopPropagation(); addToCart(${product.id})">
+                                    <i class="bi bi-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('') + '</div>';
+        }
+
+        function renderForumPosts() {
+            const container = document.getElementById('forumPosts');
+            container.innerHTML = appData.forumPosts.map(post => `
+                <div class="forum-post">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="https://ui-avatars.com/api/?name=${post.author}&size=40&background=4C8AB3&color=fff" class="rounded-circle me-2" alt="${post.author}">
+                        <div>
+                            <strong>${post.author}</strong>
+                            <br><small class="text-muted">${getTimeAgo(post.timestamp)}</small>
+                        </div>
+                    </div>
+                    <p>${post.content}</p>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-sm btn-outline-primary" onclick="likePost(${post.id})">
+                            <i class="bi bi-heart"></i> ${post.likes}
+                        </button>
+                        <button class="btn btn-sm btn-outline-primary" onclick="showComments(${post.id})">
+                            <i class="bi bi-chat"></i> ${post.comments.length}
+                        </button>
+                    </div>
+                    <div class="comment-section" id="comments-${post.id}" style="display: none;">
+                        ${post.comments.map(comment => `
+                            <div class="mt-2 mb-2">
+                                <strong>${comment.author}:</strong> ${comment.content}
+                            </div>
+                        `).join('')}
+                        <div class="input-group mt-2">
+                            <input type="text" class="form-control" placeholder="Tulis komentar..." id="comment-input-${post.id}">
+                            <button class="btn btn-primary" onclick="addComment(${post.id})">Kirim</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterMentors() {
+            const search = document.getElementById('mentorSearch').value.toLowerCase();
+            const filtered = database.mentors.filter(m => 
+                m.name.toLowerCase().includes(search) || 
+                m.expertise.toLowerCase().includes(search)
+            );
+            
+            const container = document.getElementById('mentorList');
+            container.innerHTML = filtered.map(mentor => `
+                <div class="card mentor-card mb-3" style="cursor: pointer;" onclick="showMentorDetail(${mentor.id})">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <img src="${mentor.image}" alt="${mentor.name}">
+                            <div class="ms-3 flex-grow-1">
+                                <h6 class="mb-1">${mentor.name}</h6>
+                                <small class="text-muted">${mentor.expertise}</small>
+                                <div class="rating mt-1">
+                                    <i class="bi bi-star-fill"></i> ${mentor.rating} (${mentor.sessions} sesi)
+                                </div>
+                                <p class="mb-0 mt-2"><small>${mentor.description}</small></p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100 mt-3" onclick="event.stopPropagation(); startConsultation(${mentor.id})">
+                            Mulai Konsultasi - Rp ${mentor.price.toLocaleString('id-ID')}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts(type) {
+            renderProducts(type);
+        }
+
+        function showMentorDetail(mentorId) {
+            const mentor = database.mentors.find(m => m.id === mentorId);
+            showModal('Detail Mentor', `
+                <div class="text-center">
+                    <img src="${mentor.image}" alt="${mentor.name}" style="width: 120px; height: 120px;" class="rounded-circle mb-3">
+                    <h5>${mentor.name}</h5>
+                    <span class="badge badge-custom mb-3">${mentor.expertise}</span>
+                    <div class="rating mb-3">
+                        <i class="bi bi-star-fill"></i> ${mentor.rating} (${mentor.sessions} sesi konsultasi)
+                    </div>
+                    <p>${mentor.description}</p>
+                    <h4 class="text-primary mb-3">Rp ${mentor.price.toLocaleString('id-ID')}/sesi</h4>
+                    <button class="btn btn-primary w-100" onclick="startConsultation(${mentor.id})">
+                        <i class="bi bi-chat-dots"></i> Mulai Konsultasi
+                    </button>
+                </div>
+            `);
+        }
+
+        function showArticleDetail(articleId) {
+            const article = database.articles.find(a => a.id === articleId);
+            showModal(article.title, `
+                <img src="${article.image}" class="w-100 mb-3" style="border-radius: 15px;" alt="${article.title}">
+                <span class="badge badge-custom">${article.category}</span>
+                <p class="mt-3"><small class="text-muted">
+                    <i class="bi bi-person"></i> ${article.author} | 
+                    <i class="bi bi-calendar"></i> ${article.date} | 
+                    <i class="bi bi-eye"></i> ${article.views} views
+                </small></p>
+                <div class="mt-3">${article.content}</div>
+                <div class="mt-4">
+                    <button class="btn btn-outline-primary" onclick="toggleFavorite(${article.id})">
+                        <i class="bi bi-heart${appData.favorites.includes(article.id) ? '-fill text-danger' : ''}"></i> 
+                        ${appData.favorites.includes(article.id) ? 'Hapus dari' : 'Simpan ke'} Favorit
+                    </button>
+                    <button class="btn btn-outline-primary ms-2" onclick="shareArticle(${article.id})">
+                        <i class="bi bi-share"></i> Bagikan
+                    </button>
+                </div>
+            `);
+        }
+
+        function showProductDetail(productId) {
+            const product = database.products.find(p => p.id === productId);
+            showModal(product.name, `
+                <img src="${product.image}" class="w-100 mb-3" style="border-radius: 15px;" alt="${product.name}">
+                <div class="rating mb-2">
+                    <i class="bi bi-star-fill"></i> ${product.rating}
+                </div>
+                <h4 class="text-primary mb-3">Rp ${product.price.toLocaleString('id-ID')}</h4>
+                <p>${product.description}</p>
+                <button class="btn btn-primary w-100" onclick="addToCart(${product.id})">
+                    <i class="bi bi-cart-plus"></i> Tambah ke Keranjang
+                </button>
+            `);
+        }
+
+        function startConsultation(mentorId) {
+            const mentor = database.mentors.find(m => m.id === mentorId);
+            showModal('Mulai Konsultasi', `
+                <div class="consultation-session">
+                    <div class="text-center mb-3">
+                        <img src="${mentor.image}" style="width: 80px; height: 80px;" class="rounded-circle">
+                        <h6 class="mt-2">${mentor.name}</h6>
+                        <small class="text-muted">${mentor.expertise}</small>
+                    </div>
+                    <div class="btn-group w-100 mb-3">
+                        <button class="btn btn-outline-primary" onclick="selectConsultationType('chat')">
+                            <i class="bi bi-chat"></i> Chat
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="selectConsultationType('voice')">
+                            <i class="bi bi-telephone"></i> Voice
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="selectConsultationType('video')">
+                            <i class="bi bi-camera-video"></i> Video
+                        </button>
+                    </div>
+                    <div id="consultationArea"></div>
+                </div>
+            `);
+        }
+
+        function selectConsultationType(type) {
+            const area = document.getElementById('consultationArea');
+            const icons = { chat: 'chat-dots', voice: 'telephone', video: 'camera-video' };
+            area.innerHTML = `
+                <div class="alert alert-success">
+                    <i class="bi bi-${icons[type]}"></i> Sesi ${type} dimulai!
+                </div>
+                <div class="chatbot-container mb-3" id="sessionMessages">
+                    <div class="chat-bubble bot">
+                        Halo! Saya siap membantu konsultasi Anda. Silakan sampaikan pertanyaan atau masalah bisnis Anda.
+                    </div>
+                </div>
+                <div class="message-input">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Ketik pesan Anda..." id="sessionInput" onkeypress="if(event.key==='Enter') sendSessionMessage()">
+                        <button class="btn btn-primary" onclick="sendSessionMessage()">
+                            <i class="bi bi-send"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="btn btn-danger w-100 mt-3" onclick="endSession()">Akhiri Sesi</button>
+            `;
+        }
+
+        function sendSessionMessage() {
+            const input = document.getElementById('sessionInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            const container = document.getElementById('sessionMessages');
+            container.innerHTML += `<div class="chat-bubble user">${message}</div>`;
+            input.value = '';
+            
+            setTimeout(() => {
+                const responses = [
+                    'Terima kasih atas pertanyaannya. Berdasarkan pengalaman saya...',
+                    'Itu pertanyaan yang bagus. Saya sarankan Anda...',
+                    'Saya memahami situasi Anda. Langkah terbaik adalah...',
+                    'Dari perspektif bisnis, solusinya adalah...'
+                ];
+                container.innerHTML += `<div class="chat-bubble bot">${responses[Math.floor(Math.random() * responses.length)]}</div>`;
+                container.scrollTop = container.scrollHeight;
+            }, 1000);
+        }
+
+        function endSession() {
+            showModal('Rating Konsultasi', `
+                <div class="text-center">
+                    <h5>Bagaimana sesi konsultasi Anda?</h5>
+                    <div class="my-4">
+                        <i class="bi bi-star fs-2 text-warning" style="cursor: pointer;" onclick="setRating(1)"></i>
+                        <i class="bi bi-star fs-2 text-warning" style="cursor: pointer;" onclick="setRating(2)"></i>
+                        <i class="bi bi-star fs-2 text-warning" style="cursor: pointer;" onclick="setRating(3)"></i>
+                        <i class="bi bi-star fs-2 text-warning" style="cursor: pointer;" onclick="setRating(4)"></i>
+                        <i class="bi bi-star fs-2 text-warning" style="cursor: pointer;" onclick="setRating(5)"></i>
+                    </div>
+                    <textarea class="form-control mb-3" placeholder="Berikan ulasan Anda..." id="reviewText"></textarea>
+                    <button class="btn btn-primary w-100" onclick="submitRating()">Kirim Rating</button>
+                </div>
+            `);
+        }
+
+        function setRating(stars) {
+            const starElements = document.querySelectorAll('.bi-star');
+            starElements.forEach((star, index) => {
+                if (index < stars) {
+                    star.classList.add('bi-star-fill');
+                    star.classList.remove('bi-star');
+                } else {
+                    star.classList.add('bi-star');
+                    star.classList.remove('bi-star-fill');
+                }
+            });
+        }
+
+        function submitRating() {
+            const review = document.getElementById('reviewText').value;
+            appData.consultationHistory.push({
+                date: new Date().toISOString(),
+                rating: 5,
+                review: review
+            });
+            localStorage.setItem('consultationHistory', JSON.stringify(appData.consultationHistory));
+            alert('Terima kasih atas rating Anda!');
+            closeModal();
+        }
+
+        function addToCart(productId) {
+            const product = database.products.find(p => p.id === productId);
+            if (!appData.cart.find(item => item.id === productId)) {
+                appData.cart.push(product);
+                localStorage.setItem('cart', JSON.stringify(appData.cart));
+                updateCartBadge();
+                showToast('Produk ditambahkan ke keranjang!');
+            } else {
+                showToast('Produk sudah ada di keranjang!');
+            }
+        }
+
+        function updateCartBadge() {
+            document.getElementById('cartBadge').textContent = appData.cart.length;
+        }
+
+        function showCart() {
+            if (appData.cart.length === 0) {
+                showModal('Keranjang Belanja', '<p class="text-center">Keranjang Anda masih kosong</p>');
+                return;
+            }
+            
+            const total = appData.cart.reduce((sum, item) => sum + item.price, 0);
+            showModal('Keranjang Belanja', `
+                ${appData.cart.map(item => `
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="d-flex align-items-center">
+                            <img src="${item.image}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px;" alt="${item.name}">
+                            <div class="ms-3">
+                                <h6 class="mb-0">${item.name}</h6>
+                                <strong class="text-primary">Rp ${item.price.toLocaleString('id-ID')}</strong>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-danger" onclick="removeFromCart(${item.id})">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                `).join('')}
+                <hr>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5>Total:</h5>
+                    <h5 class="text-primary">Rp ${total.toLocaleString('id-ID')}</h5>
+                </div>
+                <button class="btn btn-primary w-100" onclick="checkout()">
+                    <i class="bi bi-credit-card"></i> Checkout
+                </button>
+            `);
+        }
+
+        function removeFromCart(productId) {
+            appData.cart = appData.cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(appData.cart));
+            updateCartBadge();
+            showCart();
+        }
+
+        function checkout() {
+            const total = appData.cart.reduce((sum, item) => sum + item.price, 0);
+            appData.transactions.push({
+                date: new Date().toISOString(),
+                items: [...appData.cart],
+                total: total
+            });
+            localStorage.setItem('transactions', JSON.stringify(appData.transactions));
+            appData.cart = [];
+            localStorage.setItem('cart', JSON.stringify(appData.cart));
+            updateCartBadge();
+            alert('Pembayaran berhasil! Produk dapat diakses di profil Anda.');
+            closeModal();
+        }
+
+        function toggleFavorite(articleId) {
+            const index = appData.favorites.indexOf(articleId);
+            if (index > -1) {
+                appData.favorites.splice(index, 1);
+                showToast('Dihapus dari favorit');
+            } else {
+                appData.favorites.push(articleId);
+                showToast('Ditambahkan ke favorit');
+            }
+            localStorage.setItem('favorites', JSON.stringify(appData.favorites));
+            renderLatestArticles();
+        }
+
+        function shareArticle(articleId) {
+            const article = database.articles.find(a => a.id === articleId);
+            if (navigator.share) {
+                navigator.share({
+                    title: article.title,
+                    text: article.content.substring(0, 100) + '...',
+                    url: window.location.href
+                });
+            } else {
+                showToast('Link artikel disalin!');
+            }
+        }
+
+        function showNewPostModal() {
+            showModal('Buat Postingan Baru', `
+                <textarea class="form-control mb-3" rows="4" placeholder="Apa yang ingin Anda bagikan?" id="newPostContent"></textarea>
+                <button class="btn btn-primary w-100" onclick="createPost()">Posting</button>
+            `);
+        }
+
+        function createPost() {
+            const content = document.getElementById('newPostContent').value.trim();
+            if (!content) return;
+            
+            const newPost = {
+                id: appData.forumPosts.length + 1,
+                author: "Anda",
+                content: content,
+                likes: 0,
+                comments: [],
+                timestamp: new Date().toISOString()
+            };
+            
+            appData.forumPosts.unshift(newPost);
+            localStorage.setItem('forumPosts', JSON.stringify(appData.forumPosts));
+            renderForumPosts();
+            closeModal();
+            showToast('Postingan berhasil dibuat!');
+        }
+
+        function likePost(postId) {
+            const post = appData.forumPosts.find(p => p.id === postId);
+            post.likes++;
+            localStorage.setItem('forumPosts', JSON.stringify(appData.forumPosts));
+            renderForumPosts();
+        }
+
+        function showComments(postId) {
+            const commentsDiv = document.getElementById(`comments-${postId}`);
+            commentsDiv.style.display = commentsDiv.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function addComment(postId) {
+            const input = document.getElementById(`comment-input-${postId}`);
+            const content = input.value.trim();
+            if (!content) return;
+            
+            const post = appData.forumPosts.find(p => p.id === postId);
+            post.comments.push({
+                author: "Anda",
+                content: content
+            });
+            localStorage.setItem('forumPosts', JSON.stringify(appData.forumPosts));
+            renderForumPosts();
+            showComments(postId);
+        }
+
+        function openChatbot() {
+            showModal('Chatbot Konsulind', `
+                <div class="chatbot-container" id="chatbotMessages">
+                    <div class="chat-bubble bot">
+                        Halo! Saya asisten virtual Konsulind. Ada yang bisa saya bantu?
+                    </div>
+                </div>
+                <div class="message-input">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Ketik pertanyaan Anda..." id="chatbotInput" onkeypress="if(event.key==='Enter') sendChatMessage()">
+                        <button class="btn btn-primary" onclick="sendChatMessage()">
+                            <i class="bi bi-send"></i>
+                        </button>
+                    </div>
+                </div>
+            `);
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatbotInput');
+            const message = input.value.trim().toLowerCase();
+            if (!message) return;
+            
+            const container = document.getElementById('chatbotMessages');
+            container.innerHTML += `<div class="chat-bubble user">${input.value}</div>`;
+            input.value = '';
+            
+            setTimeout(() => {
+                let response = '';
+                if (message.includes('mentor') || message.includes('konsultasi')) {
+                    response = 'Kami punya mentor profesional di berbagai bidang. Klik tab Konsultasi untuk melihat daftar mentor!';
+                } else if (message.includes('harga') || message.includes('biaya')) {
+                    response = 'Harga konsultasi bervariasi mulai dari Rp 180.000 hingga Rp 250.000 per sesi.';
+                } else if (message.includes('artikel')) {
+                    response = 'Kami punya banyak artikel edukatif seputar bisnis. Cek di halaman Home!';
+                } else if (message.includes('produk') || message.includes('toko')) {
+                    response = 'Kunjungi Toko Bisnis kami untuk template, e-book, dan tools bisnis berkualitas!';
+                } else {
+                    response = 'Terima kasih atas pertanyaannya! Tim kami siap membantu Anda. Silakan hubungi mentor kami untuk konsultasi lebih lanjut.';
+                }
+                container.innerHTML += `<div class="chat-bubble bot">${response}</div>`;
+                container.scrollTop = container.scrollHeight;
+            }, 800);
+        }
+
+        function performSearch() {
+            const query = document.getElementById('globalSearch').value.toLowerCase();
+            if (!query) return;
+            
+            const mentorResults = database.mentors.filter(m => 
+                m.name.toLowerCase().includes(query) || 
+                m.expertise.toLowerCase().includes(query)
+            );
+            const articleResults = database.articles.filter(a => 
+                a.title.toLowerCase().includes(query) || 
+                a.category.toLowerCase().includes(query)
+            );
+            const productResults = database.products.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.description.toLowerCase().includes(query)
+            );
+            
+            let html = '<h5>Hasil Pencarian</h5>';
+            
+            if (mentorResults.length > 0) {
+                html += '<h6 class="mt-3">Mentor</h6>';
+                html += mentorResults.map(m => `<div class="mb-2"><a href="javascript:void(0)" onclick="showMentorDetail(${m.id})">${m.name} - ${m.expertise}</a></div>`).join('');
+            }
+            
+            if (articleResults.length > 0) {
+                html += '<h6 class="mt-3">Artikel</h6>';
+                html += articleResults.map(a => `<div class="mb-2"><a href="javascript:void(0)" onclick="showArticleDetail(${a.id})">${a.title}</a></div>`).join('');
+            }
+            
+            if (productResults.length > 0) {
+                html += '<h6 class="mt-3">Produk</h6>';
+                html += productResults.map(p => `<div class="mb-2"><a href="javascript:void(0)" onclick="showProductDetail(${p.id})">${p.name}</a></div>`).join('');
+            }
+            
+            if (mentorResults.length === 0 && articleResults.length === 0 && productResults.length === 0) {
+                html += '<p class="text-muted">Tidak ada hasil ditemukan</p>';
+            }
+            
+            showModal('Hasil Pencarian', html);
+        }
+
+        function showHistory() {
+            if (appData.consultationHistory.length === 0) {
+                showModal('Riwayat Konsultasi', '<p class="text-center">Belum ada riwayat konsultasi</p>');
+                return;
+            }
+            
+            showModal('Riwayat Konsultasi', appData.consultationHistory.map((h, i) => `
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <small class="text-muted">${new Date(h.date).toLocaleDateString('id-ID')}</small>
+                        <div class="rating"><i class="bi bi-star-fill"></i> ${h.rating}</div>
+                        <p class="mb-0">${h.review || 'Tidak ada ulasan'}</p>
+                    </div>
+                </div>
+            `).join(''));
+        }
+
+        function showTransactions() {
+            if (appData.transactions.length === 0) {
+                showModal('Riwayat Transaksi', '<p class="text-center">Belum ada riwayat transaksi</p>');
+                return;
+            }
+            
+            showModal('Riwayat Transaksi', appData.transactions.map((t, i) => `
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <small class="text-muted">${new Date(t.date).toLocaleDateString('id-ID')}</small>
+                        <div>${t.items.length} item(s)</div>
+                        <strong class="text-primary">Total: Rp ${t.total.toLocaleString('id-ID')}</strong>
+                    </div>
+                </div>
+            `).join(''));
+        }
+
+        function showFavorites() {
+            if (appData.favorites.length === 0) {
+                showModal('Artikel Favorit', '<p class="text-center">Belum ada artikel favorit</p>');
+                return;
+            }
+            
+            const favoriteArticles = database.articles.filter(a => appData.favorites.includes(a.id));
+            showModal('Artikel Favorit', favoriteArticles.map(article => `
+                <div class="card mb-2" style="cursor: pointer;" onclick="showArticleDetail(${article.id})">
+                    <div class="card-body">
+                        <h6>${article.title}</h6>
+                        <small class="text-muted">${article.category}</small>
+                    </div>
+                </div>
+            `).join(''));
+        }
+
+        function editProfile() {
+            showModal('Edit Profil', `
+                <div class="mb-3">
+                    <label class="form-label">Nama</label>
+                    <input type="text" class="form-control" id="editName" value="Pengguna Konsulind">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="editEmail" value="user@konsulind.com">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">No. Telepon</label>
+                    <input type="tel" class="form-control" id="editPhone" value="+62 812-3456-7890">
+                </div>
+                <button class="btn btn-primary w-100" onclick="saveProfile()">Simpan Perubahan</button>
+            `);
+        }
+
+        function saveProfile() {
+            const name = document.getElementById('editName').value;
+            document.getElementById('userName').textContent = name;
+            showToast('Profil berhasil diperbarui!');
+            closeModal();
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            appData.darkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', appData.darkMode);
+            
+            const icon = document.getElementById('darkModeToggle');
+            if (appData.darkMode) {
+                icon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+            } else {
+                icon.classList.replace('bi-sun-fill', 'bi-moon-fill');
+            }
+        }
+
+        function showNotifications() {
+            showModal('Notifikasi', `
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Artikel Baru!</h6>
+                            <small>2 jam lalu</small>
+                        </div>
+                        <p class="mb-1">Artikel baru tentang "Strategi Marketing 2025" sudah tersedia!</p>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Mentor Tersedia</h6>
+                            <small>5 jam lalu</small>
+                        </div>
+                        <p class="mb-1">Dr. Ahmad Santoso sekarang tersedia untuk konsultasi.</p>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Promo Spesial</h6>
+                            <small>1 hari lalu</small>
+                        </div>
+                        <p class="mb-1">Diskon 20% untuk semua produk digital minggu ini!</p>
+                    </div>
+                </div>
+            `);
+        }
+
+        function getTimeAgo(timestamp) {
+            const now = new Date();
+            const past = new Date(timestamp);
+            const diff = Math.floor((now - past) / 1000);
+            
+            if (diff < 60) return 'Baru saja';
+            if (diff < 3600) return Math.floor(diff / 60) + ' menit lalu';
+            if (diff < 86400) return Math.floor(diff / 3600) + ' jam lalu';
+            return Math.floor(diff / 86400) + ' hari lalu';
+        }
+
+        function showModal(title, content) {
+            const modalHtml = `
+                <div class="modal fade" id="dynamicModal" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">${title}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                ${content}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            const existingModal = document.getElementById('dynamicModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            const modal = new bootstrap.Modal(document.getElementById('dynamicModal'));
+            modal.show();
+        }
+
+        function closeModal() {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('dynamicModal'));
+            if (modal) modal.hide();
+        }
+
+        function showToast(message) {
+            const toastHtml = `
+                <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11000">
+                    <div class="toast show" role="alert">
+                        <div class="toast-body">
+                            ${message}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', toastHtml);
+            setTimeout(() => {
+                document.querySelector('.toast').remove();
+            }, 3000);
+        }
+
+        function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                const swCode = `
+                    const CACHE_NAME = 'konsulind-v1';
+                    const urlsToCache = [
+                        '/',
+                        'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css',
+                        'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css',
+                        'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js',
+                        'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js'
+                    ];
+
+                    self.addEventListener('install', event => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then(cache => cache.addAll(urlsToCache))
+                        );
+                    });
+
+                    self.addEventListener('fetch', event => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then(response => response || fetch(event.request))
+                        );
+                    });
+
+                    self.addEventListener('activate', event => {
+                        event.waitUntil(
+                            caches.keys().then(cacheNames => {
+                                return Promise.all(
+                                    cacheNames.map(cacheName => {
+                                        if (cacheName !== CACHE_NAME) {
+                                            return caches.delete(cacheName);
+                                        }
+                                    })
+                                );
+                            })
+                        );
+                    });
+                `;
+
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+
+                navigator.serviceWorker.register(swUrl)
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            }
+        }
+
+        function requestNotificationPermission() {
+            if ('Notification' in window && 'serviceWorker' in navigator) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        console.log('Notification permission granted');
+                        scheduleNotification();
+                    }
+                });
+            }
+        }
+
+        function scheduleNotification() {
+            setTimeout(() => {
+                if (Notification.permission === 'granted') {
+                    new Notification('Konsulind', {
+                        body: 'Ada artikel baru dan mentor tersedia untuk Anda!',
+                        icon: 'https://ui-avatars.com/api/?name=K&size=192&background=4C8AB3&color=fff',
+                        badge: 'https://ui-avatars.com/api/?name=K&size=96&background=4C8AB3&color=fff'
+                    });
+                }
+            }, 60000);
+        }
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                setTimeout(() => {
+                    const installToast = `
+                        <div class="position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index: 11000">
+                            <div class="toast show" role="alert">
+                                <div class="toast-body text-center">
+                                    <p class="mb-2">Install Konsulind sebagai aplikasi?</p>
+                                    <button class="btn btn-primary btn-sm" onclick="installApp()">Install</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    document.body.insertAdjacentHTML('beforeend', installToast);
+                    
+                    window.deferredPrompt = e;
+                }, 5000);
+            });
+        }
+
+        function installApp() {
+            if (window.deferredPrompt) {
+                window.deferredPrompt.prompt();
+                window.deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('App installed');
+                    }
+                    window.deferredPrompt = null;
+                    document.querySelector('.toast').remove();
+                });
+            }
+        }
+    </script>
+</body>
+</html>
